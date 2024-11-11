@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://material/newpng/ugicon.png" type="Texture" id=1]
+[ext_resource path="res://ShootingUpgrade.gd" type="Script" id=2]
+[ext_resource path="res://material/Fonts/ARIAL.TTF" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+outline_size = 1
+font_data = ExtResource( 3 )
+
+[node name="ShootingUpgrade" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -392.0
+margin_bottom = -528.0
+rect_clip_content = true
+custom_constants/separation = 27
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 77.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 30, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+margin_left = 104.0
+margin_right = 450.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Shooting Cooldown"
+uppercase = true
+
+[node name="Control" type="Control" parent="."]
+margin_left = 477.0
+margin_right = 527.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.65
+
+[node name="Button" type="Button" parent="."]
+margin_left = 554.0
+margin_right = 632.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
