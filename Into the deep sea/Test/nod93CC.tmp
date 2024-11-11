@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cralqpomlq1hb"]
+
+[ext_resource type="Texture2D" uid="uid://ldl2tj2qgtev" path="res://G1/TBG01.webp" id="1_01csu"]
+[ext_resource type="Texture2D" uid="uid://bevrjxjsh8i0n" path="res://G1/TBG02.png" id="2_t87fs"]
+[ext_resource type="Script" path="res://Test/BBM.gd" id="3_eqotl"]
+[ext_resource type="PackedScene" uid="uid://bf1yvo6vhk1jk" path="res://BG_BB/MBB.tscn" id="4_4n1oa"]
+[ext_resource type="Script" path="res://Test/Main.gd" id="5_jk21t"]
+
+[sub_resource type="Curve2D" id="Curve2D_21sgn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -61, 105.429, 0, 0, 0, 0, 63.9032, 90)
+}
+point_count = 2
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+z_index = -1
+position = Vector2(2, -4)
+texture = ExtResource("1_01csu")
+
+[node name="BB" type="Sprite2D" parent="Camera2D/Sprite2D"]
+position = Vector2(1.305, 0)
+scale = Vector2(0.326923, 0.321429)
+texture = ExtResource("2_t87fs")
+script = ExtResource("3_eqotl")
+
+[node name="MBB" parent="." instance=ExtResource("4_4n1oa")]
+position = Vector2(-32, 65)
+
+[node name="Main" type="Node2D" parent="."]
+script = ExtResource("5_jk21t")
+mob_scene = ExtResource("4_4n1oa")
+
+[node name="MobTimer" type="Timer" parent="Main"]
+wait_time = 0.5
+
+[node name="StartTimer" type="Timer" parent="Main"]
+wait_time = 2.0
+
+[node name="ScoreTimer" type="Timer" parent="Main"]
+
+[node name="Path2D" type="Path2D" parent="Main"]
+position = Vector2(-1.48761, -9)
+scale = Vector2(1.02479, 1.16667)
+curve = SubResource("Curve2D_21sgn")

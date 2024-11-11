@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://cralqpomlq1hb"]
+
+[ext_resource type="Texture2D" uid="uid://ldl2tj2qgtev" path="res://G1/TBG01.webp" id="1_01csu"]
+[ext_resource type="PackedScene" uid="uid://bf1yvo6vhk1jk" path="res://Test/MBB.tscn" id="4_4n1oa"]
+[ext_resource type="Texture2D" uid="uid://bbd7dpehf4tw1" path="res://G1/ship-export.png" id="5_53ukg"]
+[ext_resource type="Script" path="res://Test/Player.gd" id="5_gaydy"]
+[ext_resource type="Script" path="res://Test/Main.gd" id="5_jk21t"]
+[ext_resource type="Script" path="res://Test/BaBlimit.gd" id="6_gbs7r"]
+[ext_resource type="PackedScene" uid="uid://d1sca35sby0pm" path="res://MonsterGD/monster.tscn" id="6_ikpku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blnft"]
+size = Vector2(20.8776, 91.4962)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_at0vv"]
+radius = 8.0
+
+[sub_resource type="Curve2D" id="Curve2D_wp5mx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, -120, 0, 0, 0, 0, 64, -120, 0, 0, 0, 0, 64, 104, 0, 0, 0, 0, -64, 112, 0, 0, 0, 0, -64, -120)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.195, 4.195)
+
+[node name="background" type="Sprite2D" parent="Camera2D"]
+z_index = -1
+position = Vector2(2, -4)
+texture = ExtResource("1_01csu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Camera2D"]
+visible = false
+position = Vector2(2, -4)
+
+[node name="Main" type="Node2D" parent="."]
+position = Vector2(-100, -16)
+script = ExtResource("5_jk21t")
+mob_scene = ExtResource("4_4n1oa")
+
+[node name="Area2D" type="Area2D" parent="Main"]
+position = Vector2(100, 16)
+script = ExtResource("6_gbs7r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Area2D"]
+position = Vector2(-8.3905, -155.092)
+rotation = 3.14159
+scale = Vector2(19.1219, 0.981641)
+shape = SubResource("RectangleShape2D_blnft")
+
+[node name="MBB" parent="Main" instance=ExtResource("4_4n1oa")]
+position = Vector2(-72, -104)
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("5_gaydy")
+
+[node name="Ship" type="Sprite2D" parent="Player"]
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("5_53ukg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_at0vv")
+
+[node name="monsterspown" type="Node2D" parent="." groups=["monster"]]
+
+[node name="monster1 chart" parent="monsterspown" instance=ExtResource("6_ikpku")]
+position = Vector2(-136, 80)
+scale = Vector2(0.225, 0.225)
+
+[node name="Path2D" type="Path2D" parent="monsterspown"]
+curve = SubResource("Curve2D_wp5mx")
+
+[node name="MobTimer" type="Timer" parent="monsterspown"]
+wait_time = 0.5
+
+[node name="StartTimer" type="Timer" parent="monsterspown"]
+wait_time = 2.0
+
+[connection signal="child_entered_tree" from="Main/MBB" to="Main" method="_on_mbb_child_entered_tree"]
